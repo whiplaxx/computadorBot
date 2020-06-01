@@ -1,6 +1,7 @@
 import discord
 import asyncio
 from time import time, sleep
+from random import randint
 
 from os import path as p
 CURRENT_DIR = p.dirname(p.realpath(__file__))
@@ -107,6 +108,27 @@ async def link(f_client, message, content):
 
     read.writeFile( link_list, 'links', DATA_DIR, separator=';')
 
+async def tweet(f_client, message, content):
+
+    try:
+        user_name = content[1]
+    except:
+        return
+
+    try:
+        tweet = f_client.twitter_api.user_timeline(screen_name=user_name, count=100, include_rts=False, exclude_replies=True)
+    except:
+        await message.channel.send( "nn existe" )
+
+    len_tweets = len(tweet)
+    if len_tweets > 0:
+        tweet = tweet[randint(0, len_tweets)]
+        link = "https://twitter.com/" + user_name + "/status/" + tweet.id_str
+
+        await message.channel.send( link )
+    else: 
+        await message.channel.send( "num tweto ")
+
 async def chamada(f_client, message, content):
 
     author_id = message.author.id
@@ -132,11 +154,12 @@ async def chamada(f_client, message, content):
 
 # COMMANDS DIC
 commands = {
-    "ajuda": [sendHelp, "Lista todos os comandos"],
-    "convite": [invite, "Link do convite do cachorro fofo"],
-    "wait": [wait, "espera N segundos"],
-    "avatar": [avatar, "pega o avatar de alguem"],
-    "link": [link, "cria link de um texto. link tem que se uma palavra so e nada pode te ponto e virugla. Ex: ?link eae / eae bom"]
+    "ajuda": [sendHelp, "Lista todos os comandos"]
+    , "convite": [invite, "Link do convite do cachorro fofo"]
+    , "wait": [wait, "espera N segundos"]
+    ,"avatar": [avatar, "pega o avatar de alguem"]
+    ,"link": [link, "cria link de um texto. link tem que se uma palavra so e nada pode te ponto e virugla. Ex: ?link eae / eae bom"]
+    ,"tweet": [tweet, "pega um tweet random do user passado"]
 }
 
 waitingCommand = []

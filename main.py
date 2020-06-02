@@ -54,11 +54,11 @@ class MyClient(discord.Client):
 
     def auth_Twitter(self):
 
-        consumer_key="SdadjbopDSvEHudRyG3ieIM8O"
-        consumer_secret="o6Hfj8k6f0zHQUpbi4LqoY8QRwyPvGVMPp1gcVsZClHSjBeEUI"
+        consumer_key="token"
+        consumer_secret="token"
 
-        access_token="1124008483911872512-jlLOvRTawW1FAqGJxM0FrSUSUHEKZM"
-        access_token_secret="xkYHzO1wNxQcuGeST1x6F6cGrbet6zZdLLdATxoPdxSUR"
+        access_token="token"
+        access_token_secret="token"
 
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
